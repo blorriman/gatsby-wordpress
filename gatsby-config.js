@@ -59,6 +59,23 @@ module.exports = {
         normalizer: function({ entities }) {
           return entities
         },
+        // defaults
+        maxWidth: 650,
+        wrapperStyle: ``,
+        postTypes: ["post", "page"],
+        backgroundColor: `white`,
+        withWebp: false, // enable WebP files generation
+        // add any image sharp fluid options here
+        // ...
+        plugins: [
+          {
+            resolve: `gatsby-wordpress-inline-images`,
+            options: {
+              baseUrl: `webrenovations.ca/`,
+              protocol: `http`,
+            },
+          },
+        ],
       },
     },
     `gatsby-plugin-sass`,
