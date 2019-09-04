@@ -5,7 +5,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const BlogPostTemplate = ({ data }) => {
-  console.log(data.wordpressPost.content)
+  console.log(data.wordpressPost.featured_media.localFile.childImageSharp)
   return (
     <Layout>
       <SEO
@@ -17,16 +17,13 @@ const BlogPostTemplate = ({ data }) => {
         Written by {data.wordpressPost.author.name} on {data.wordpressPost.date}
       </p>
       <p>put image here</p>
-      {/* <Img
+      <Img
         fluid={
           data.wordpressPost.featured_media.localFile.childImageSharp.fluid
         }
-        // sizes={
-        //   data.wordpressPost.featured_media.localFile.childImageSharp.fluid
-        // }
         alt={data.wordpressPost.title}
-        // style={{ maxHeight: 450 }}
-      /> */}
+        style={{ width: 250 }}
+      />
       <div
         style={{ marginTop: 20 }}
         dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
@@ -42,6 +39,15 @@ export const query = graphql`
     wordpressPost(wordpress_id: { eq: $id }) {
       title
       content
+      featured_media {
+        localFile {
+          childImageSharp {
+            fluid(maxWidth: 600) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
       date(formatString: "MMMM DD, YYYY")
       author {
         name
