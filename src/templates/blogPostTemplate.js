@@ -16,6 +16,7 @@ const BlogPostTemplate = ({ data }) => {
       <p>
         Written by {data.wordpressPost.author.name} on {data.wordpressPost.date}
       </p>
+      <p>put image here</p>
       {/* <Img
         fluid={
           data.wordpressPost.featured_media.localFile.childImageSharp.fluid
