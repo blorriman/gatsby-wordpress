@@ -1,10 +1,11 @@
 /* eslint-disable */
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { Link, graphql } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
 import { Box, Container, Grid, makeStyles, Typography } from "@material-ui/core"
 
 import Layout from "../components/layout"
+import Header from "../components/header"
 import SEO from "../components/seo"
 
 const useStyles = makeStyles(theme => ({
@@ -29,17 +30,20 @@ const Blog = ({ data }) => {
   }
 
   return (
-    <Layout>
-      <Container component="main" className={classes.main} maxWidth="md">
-        <SEO title="Blog" />
-        <Typography component="div">
-          <Box fontSize="h4.fontSize" textAlign="center" m={1}>
-            Blog Page
-          </Box>
-          <ul>{displayPosts()}</ul>
-        </Typography>
-      </Container>
-    </Layout>
+    <>
+      <Header />
+      <Layout>
+        <Container component="main" className={classes.main} maxWidth="md">
+          <SEO title="Blog" />
+          <Typography component="div">
+            <Box fontSize="h4.fontSize" textAlign="center" m={1}>
+              Blog Page
+            </Box>
+            <ul>{displayPosts()}</ul>
+          </Typography>
+        </Container>
+      </Layout>
+    </>
   )
 }
 

@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
     siteUrl: `https://bl-gatsby-wordpress.netlify.com/`,
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Gatsby WordPress Demo`,
+    description: `This is a demo of Gatsby using WordPress as a headless CMS`,
+    author: `Bob Lorriman`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

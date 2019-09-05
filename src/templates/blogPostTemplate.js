@@ -1,25 +1,30 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
-import { Typography } from "@material-ui/core"
+import {
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Grow,
+  Hidden,
+  makeStyles,
+  Typography,
+} from "@material-ui/core"
 
 import Layout from "../components/layout"
+import Header from "../components/header"
 import SEO from "../components/seo"
 
 const BlogPostTemplate = ({ data }) => {
   return (
-    <Layout>
-      <SEO
-        title={data.wordpressPost.title}
-        description={data.wordpressPost.excerpt}
-      />
-      <Typography component={"span"} gutterBottom>
-        <h1>{data.wordpressPost.title}</h1>
-        <p>
-          Written by {data.wordpressPost.author.name} on{" "}
-          {data.wordpressPost.date}
-        </p>
-        <p>put image here</p>
+    <>
+      <Header />
+      <Layout>
+        <SEO
+          title={data.wordpressPost.title}
+          description={data.wordpressPost.excerpt}
+        />
         {data.wordpressPost.featured_media && (
           <Img
             fluid={
@@ -29,12 +34,19 @@ const BlogPostTemplate = ({ data }) => {
             style={{ width: 250 }}
           />
         )}
-        <div
-          style={{ marginTop: 20 }}
-          dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
-        />
-      </Typography>
-    </Layout>
+        <Typography component={"span"} gutterBottom>
+          <h1>{data.wordpressPost.title}</h1>
+          <p>
+            Written by {data.wordpressPost.author.name} on{" "}
+            {data.wordpressPost.date}
+          </p>
+          <div
+            style={{ marginTop: 20 }}
+            dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
+          />
+        </Typography>
+      </Layout>
+    </>
   )
 }
 
