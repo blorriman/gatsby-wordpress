@@ -1,5 +1,6 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, useStaticQuery, graphql } from "gatsby"
+import Img from "gatsby-image"
 import {
   Button,
   Container,
@@ -17,30 +18,81 @@ import SEO from "../components/seo"
 import Header from "../components/header"
 import BlogPosts from "../components/blogPosts"
 
-const IndexPage = () => (
-  <>
-    <Header />
-    <Layout>
-      <SEO title="Home" />
-      <Grid container justify="center" spacing={4}>
-        <Grid item xs={12} sm={7}>
-          <Typography component={"span"} gutterBottom>
-            <h1>Welcome to my Gatsby WordPress Demo</h1>
-            <p>Welcome to your new Gatsby site.</p>
-            <p>Now go build something great.</p>
-            <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-              <Image />
-            </div>
-          </Typography>
+const IndexPage = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      gatsby: file(relativePath: { eq: "Gatsby.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 300) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      wordpress: file(relativePath: { eq: "Wordpress.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 300) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      netlify: file(relativePath: { eq: "Netlify.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 300) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `)
+
+  function ImageRow() {
+    return (
+      <>
+        <Grid item xs={4}>
+          <Img fluid={data.gatsby.childImageSharp.fluid} />
         </Grid>
-        <Grid item xs={12} sm={5}>
-          <Typography component={"span"} gutterBottom>
-            <BlogPosts />
-          </Typography>
+        <Grid item xs={4}>
+          <Img fluid={data.wordpress.childImageSharp.fluid} />
         </Grid>
-      </Grid>
-    </Layout>
-  </>
-)
+        <Grid item xs={4}>
+          <Img fluid={data.netlify.childImageSharp.fluid} />
+        </Grid>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <Header />
+      <Layout>
+        <SEO title="Home" />
+        <Grid container justify="center" spacing={4}>
+          <Grid container item xs={12} sm={7} spacing={4} alignItems="center">
+            <Typography component={"span"} gutterBottom>
+              <h1>Welcome!</h1>
+              <p>
+                This is a demo of a blog website built with Gatsby frontend,
+                Wordpress as a headless CMS, and deployed with Netlify as a CDN.
+              </p>
+            </Typography>
+            <ImageRow />
+            <Typography component={"span"} gutterBottom>
+              <p>
+                Blog posts can be added through Wordpress and once published
+                they are automatically deployed to Netlify which conducts an
+                automatic build of the static Gatsby site.
+              </p>
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={5}>
+            <Typography component={"span"} gutterBottom>
+              <BlogPosts />
+            </Typography>
+          </Grid>
+        </Grid>
+      </Layout>
+    </>
+  )
+}
 
 export default IndexPage
