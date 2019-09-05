@@ -25,7 +25,7 @@ const IndexPage = () => (
       <Grid container justify="center" spacing={4}>
         <Grid item xs={12} sm={7}>
           <Typography component={"span"} gutterBottom>
-            <h1>Hi people</h1>
+            <h1>Welcome to my Gatsby WordPress Demo</h1>
             <p>Welcome to your new Gatsby site.</p>
             <p>Now go build something great.</p>
             <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
