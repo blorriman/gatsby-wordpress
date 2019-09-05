@@ -1,6 +1,8 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
+import { Typography } from "@material-ui/core"
+
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
@@ -11,24 +13,27 @@ const BlogPostTemplate = ({ data }) => {
         title={data.wordpressPost.title}
         description={data.wordpressPost.excerpt}
       />
-      <h1>{data.wordpressPost.title}</h1>
-      <p>
-        Written by {data.wordpressPost.author.name} on {data.wordpressPost.date}
-      </p>
-      <p>put image here</p>
-      {data.wordpressPost.featured_media && (
-        <Img
-          fluid={
-            data.wordpressPost.featured_media.localFile.childImageSharp.fluid
-          }
-          alt={data.wordpressPost.title}
-          style={{ width: 250 }}
+      <Typography component={"span"} gutterBottom>
+        <h1>{data.wordpressPost.title}</h1>
+        <p>
+          Written by {data.wordpressPost.author.name} on{" "}
+          {data.wordpressPost.date}
+        </p>
+        <p>put image here</p>
+        {data.wordpressPost.featured_media && (
+          <Img
+            fluid={
+              data.wordpressPost.featured_media.localFile.childImageSharp.fluid
+            }
+            alt={data.wordpressPost.title}
+            style={{ width: 250 }}
+          />
+        )}
+        <div
+          style={{ marginTop: 20 }}
+          dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
         />
-      )}
-      <div
-        style={{ marginTop: 20 }}
-        dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
-      />
+      </Typography>
     </Layout>
   )
 }
