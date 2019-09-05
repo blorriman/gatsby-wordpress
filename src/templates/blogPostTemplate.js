@@ -5,7 +5,6 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const BlogPostTemplate = ({ data }) => {
-  console.log(data.wordpressPost.featured_media.localFile.childImageSharp)
   return (
     <Layout>
       <SEO
@@ -17,13 +16,15 @@ const BlogPostTemplate = ({ data }) => {
         Written by {data.wordpressPost.author.name} on {data.wordpressPost.date}
       </p>
       <p>put image here</p>
-      <Img
-        fluid={
-          data.wordpressPost.featured_media.localFile.childImageSharp.fluid
-        }
-        alt={data.wordpressPost.title}
-        style={{ width: 250 }}
-      />
+      {data.wordpressPost.featured_media && (
+        <Img
+          fluid={
+            data.wordpressPost.featured_media.localFile.childImageSharp.fluid
+          }
+          alt={data.wordpressPost.title}
+          style={{ width: 250 }}
+        />
+      )}
       <div
         style={{ marginTop: 20 }}
         dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
