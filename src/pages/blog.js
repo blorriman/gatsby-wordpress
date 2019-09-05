@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import { Link, useStaticQuery, graphql } from "gatsby"
 import { Box, Container, Grid, makeStyles, Typography } from "@material-ui/core"
 
 import Layout from "../components/layout"
