@@ -9,6 +9,8 @@ import {
   Container,
   Divider,
   Grid,
+  Hidden,
+  IconButton,
   List,
   ListItem,
   ListItemText,
@@ -22,7 +24,6 @@ import { grey } from "@material-ui/core/colors"
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
-    // maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
   textInfo: {

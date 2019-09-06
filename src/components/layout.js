@@ -1,26 +1,29 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
+import { Link, StaticQuery, graphql } from "gatsby"
 import {
+  AppBar,
   Button,
   Container,
   Divider,
+  Drawer,
   Grid,
   Grow,
   Hidden,
+  IconButton,
   makeStyles,
   Typography,
 } from "@material-ui/core"
 import { grey } from "@material-ui/core/colors"
-
-import Footer from "./footer"
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
+import HomeIcon from "@material-ui/icons/Home"
 import "./layout.css"
+
+import Header from "./header"
+import Footer from "./footer"
+import BlogPosts from "./blogPosts"
+
+const drawerWidth = 240
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -33,28 +36,106 @@ const useStyles = makeStyles(theme => ({
   main: {
     display: "flex",
     flexDirection: "column",
-    minHeight: "calc(100vh - 157px) ",
-    // minHeight: "calc(100vh - 75px) ",
-    // background: `linear-gradient(to bottom, ${grey[100]} 0%, ${
-    //   grey[200]
-    // } 100%)`,
-    // paddingBottom: theme.spacing(5),
+    minHeight: "calc(100vh - 67px) ",
+    paddingBottom: theme.spacing(5),
+    paddingTop: theme.spacing(5),
   },
   toolbar: theme.mixins.toolbar,
+  appBar: {
+    boxShadow: theme.shadows[1],
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    /* padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar, */
+    justifyContent: "space-between",
+    // justifyContent: "flex-end",
+  },
+  drawerPaper: {
+    width: drawerWidth,
+    backgroundColor: grey[200],
+    paddingTop: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+  },
+  mobileDivider: {
+    marginBottom: theme.spacing(2),
+  },
 }))
 
 const Layout = ({ children }) => {
   const classes = useStyles()
+  const [open, setOpen] = useState(false)
+
+  function handleDrawerOpen() {
+    setOpen(true)
+  }
+
+  function handleDrawerClose() {
+    setOpen(false)
+  }
 
   return (
-    <Grow in={true} timeout={800}>
-      <div>
-        <Container component="main" className={classes.main} maxWidth="md">
-          <main>{children}</main>
-        </Container>
-        <Footer />
-      </div>
-    </Grow>
+    <StaticQuery
+      query={graphql`
+        query SiteTitleQuery1 {
+          site {
+            siteMetadata {
+              title
+            }
+          }
+        }
+      `}
+      render={data => (
+        <div>
+          <AppBar position="fixed" className={classes.appBar}>
+            <Header
+              siteTitle={data.site.siteMetadata.title}
+              handleDrawerOpen={handleDrawerOpen}
+              handleDrawerClose={handleDrawerClose}
+            />
+          </AppBar>
+          <Container component="main" className={classes.main} maxWidth="md">
+            <div className={classes.toolbar} />
+            <main>
+              <Drawer
+                variant="temporary"
+                open={open}
+                onClose={handleDrawerOpen}
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+                ModalProps={{
+                  keepMounted: true, // Better open performance on mobile.
+                }}
+              >
+                <Hidden smUp>
+                  <div className={classes.drawerHeader}>
+                    <Link to="/">
+                      <IconButton>
+                        <HomeIcon />
+                      </IconButton>
+                    </Link>
+
+                    <IconButton onClick={handleDrawerClose}>
+                      <ChevronLeftIcon />
+                    </IconButton>
+                  </div>
+                  <Divider className={classes.mobileDivider} />
+                </Hidden>
+                <BlogPosts />
+              </Drawer>
+              {children}
+            </main>
+          </Container>
+          <Footer />
+        </div>
+      )}
+    />
   )
 }
 

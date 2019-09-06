@@ -15,36 +15,51 @@ import {
 import Layout from "../components/layout"
 import Header from "../components/header"
 import SEO from "../components/seo"
+import BlogPosts from "../components/blogPosts"
 
 const BlogPostTemplate = ({ data }) => {
   return (
     <>
-      <Header />
       <Layout>
         <SEO
           title={data.wordpressPost.title}
           description={data.wordpressPost.excerpt}
         />
-        {data.wordpressPost.featured_media && (
-          <Img
-            fluid={
-              data.wordpressPost.featured_media.localFile.childImageSharp.fluid
-            }
-            alt={data.wordpressPost.title}
-            style={{ width: 250 }}
-          />
-        )}
-        <Typography component={"span"} gutterBottom>
-          <h1>{data.wordpressPost.title}</h1>
-          <p>
-            Written by {data.wordpressPost.author.name} on{" "}
-            {data.wordpressPost.date}
-          </p>
-          <div
-            style={{ marginTop: 20 }}
-            dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
-          />
-        </Typography>
+        <Grow in={true} timeout={800}>
+          <Grid container spacing={12} spacing={6}>
+            <Grid item xs={12} sm={8}>
+              {data.wordpressPost.featured_media && (
+                <Img
+                  fluid={
+                    data.wordpressPost.featured_media.localFile.childImageSharp
+                      .fluid
+                  }
+                  alt={data.wordpressPost.title}
+                  style={{ width: 250 }}
+                />
+              )}
+              <Typography component={"span"} gutterBottom>
+                <h1>{data.wordpressPost.title}</h1>
+                <p>
+                  Written by {data.wordpressPost.author.name} on{" "}
+                  {data.wordpressPost.date}
+                </p>
+                <div
+                  style={{ marginTop: 20 }}
+                  dangerouslySetInnerHTML={{
+                    __html: data.wordpressPost.content,
+                  }}
+                />
+              </Typography>
+            </Grid>
+
+            <Hidden xsDown>
+              <Grid item xs={12} sm={4}>
+                <BlogPosts />
+              </Grid>
+            </Hidden>
+          </Grid>
+        </Grow>
       </Layout>
     </>
   )

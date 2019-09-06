@@ -68,31 +68,36 @@ const IndexPage = () => {
 
   return (
     <>
-      <Header />
       <Layout>
         <SEO title="Home" />
-        <Grid container spacing={12} spacing={6}>
-          <Grid item xs={12} sm={8}>
-            <Typography component={"span"} gutterBottom>
-              <h1>Welcome!</h1>
-              <p>
-                This is a demo of a blog website built with Gatsby frontend,
-                Wordpress as a headless CMS, and deployed with Netlify as a CDN.
-              </p>
-            </Typography>
-            <ImageRow />
-            <Typography component={"span"} gutterBottom>
-              <p>
-                Blog posts can be added through Wordpress and once published
-                they are automatically deployed to Netlify which conducts an
-                automatic build of the static Gatsby site.
-              </p>
-            </Typography>
+        <Grow in={true} timeout={800}>
+          <Grid container spacing={12} spacing={6}>
+            <Grid item xs={12} sm={8}>
+              <Typography component={"span"} gutterBottom>
+                <h1>Welcome!</h1>
+                <p>
+                  This is a demo of a blog website built with Gatsby frontend,
+                  Wordpress as a headless CMS, and deployed with Netlify as a
+                  CDN.
+                </p>
+              </Typography>
+              <ImageRow />
+              <Typography component={"span"} gutterBottom>
+                <p>
+                  Blog posts can be added through Wordpress and once published
+                  they are automatically deployed to Netlify which conducts an
+                  automatic build of the static Gatsby site.
+                </p>
+              </Typography>
+            </Grid>
+
+            <Hidden xsDown>
+              <Grid item xs={12} sm={4}>
+                <BlogPosts />
+              </Grid>
+            </Hidden>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <BlogPosts />
-          </Grid>
-        </Grid>
+        </Grow>
       </Layout>
     </>
   )
