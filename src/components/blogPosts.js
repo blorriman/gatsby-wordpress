@@ -2,6 +2,7 @@
 import React, { useState } from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import Img from "gatsby-image"
+import moment from "moment"
 import {
   Avatar,
   Box,
@@ -16,6 +17,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core"
+import { grey } from "@material-ui/core/colors"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,8 +25,23 @@ const useStyles = makeStyles(theme => ({
     // maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
-  inline: {
-    display: "inline",
+  textInfo: {
+    fontSize: ".85em",
+    marginTop: -5,
+    marginBottom: -5,
+    color: grey[500],
+  },
+  link: {
+    textDecoration: "none",
+    color: grey[700],
+    "&:hover": {
+      backgroundColor: grey[300],
+    },
+  },
+  linkDiv: {
+    "&:hover": {
+      backgroundColor: grey[200],
+    },
   },
 }))
 
@@ -37,13 +54,17 @@ const BlogPosts = () => {
           node {
             id
             slug
-            excerpt
+            content
             title
+            author {
+              name
+            }
+            date
             featured_media {
               localFile {
                 childImageSharp {
-                  fluid {
-                    srcSet
+                  fluid(maxWidth: 600) {
+                    ...GatsbyImageSharpFluid
                   }
                 }
               }
@@ -58,38 +79,49 @@ const BlogPosts = () => {
 
   const displayPosts = () => {
     return posts.map(post => {
-      /* if (post.node.featured_media) {
-        console.log(
-          "image ",
-          post.node.featured_media.localFile.childImageSharp.fluid.srcSet
-        )
-      } */
       return (
-        <span key={post.node.id} alignItems="flex-start">
-          <Typography component={"span"} gutterBottom>
-            <h5>{post.node.title}</h5>
-            {post.node.featured_media && (
-              <Img
-                fluid={post.node.featured_media.localFile.childImageSharp.fluid}
-              />
-            )}
-          </Typography>
-        </span>
+        <Link
+          to={`/post/${post.node.slug}`}
+          key={post.node.id}
+          className={classes.link}
+        >
+          <div className={classes.linkDiv}>
+            <Grid container spacing={1} alignItems="center">
+              <Grid item xs={2}>
+                {post.node.featured_media && (
+                  <Img
+                    fluid={
+                      post.node.featured_media.localFile.childImageSharp.fluid
+                    }
+                  />
+                )}
+              </Grid>
+              <Grid item xs={9}>
+                <Typography variant="subtitle1">{post.node.title}</Typography>
+                <Typography component={"span"} noWrap>
+                  <p className={classes.textInfo}>
+                    <em>
+                      {post.node.author.name} -{" "}
+                      {moment(post.node.date).fromNow()}
+                    </em>
+                  </p>
+                </Typography>
+              </Grid>
+            </Grid>
+          </div>
+          <Divider style={{ margin: 10 }} />
+        </Link>
       )
     })
   }
 
   return (
     <>
-      <Container component="main" className={classes.main} maxWidth="md">
-        <Typography component={"span"} gutterBottom>
-          <Box fontSize="h6.fontSize" textAlign="center" m={1}>
-            Recent Posts
-          </Box>
-          {displayPosts()}
-          {/* <List className={classes.root}>{displayPosts()}</List> */}
-        </Typography>
-      </Container>
+      <Typography variant="h5" gutterBottom>
+        Recent Posts
+        <Divider />
+      </Typography>
+      {displayPosts()}
     </>
   )
 }

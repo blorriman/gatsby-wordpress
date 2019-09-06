@@ -47,7 +47,12 @@ const IndexPage = () => {
 
   function ImageRow() {
     return (
-      <>
+      <Grid
+        container
+        spacing={4}
+        alignItems="center"
+        style={{ marginBottom: 25 }}
+      >
         <Grid item xs={4}>
           <Img fluid={data.gatsby.childImageSharp.fluid} />
         </Grid>
@@ -57,7 +62,7 @@ const IndexPage = () => {
         <Grid item xs={4}>
           <Img fluid={data.netlify.childImageSharp.fluid} />
         </Grid>
-      </>
+      </Grid>
     )
   }
 
@@ -66,8 +71,8 @@ const IndexPage = () => {
       <Header />
       <Layout>
         <SEO title="Home" />
-        <Grid container justify="center" spacing={4}>
-          <Grid container item xs={12} sm={7} spacing={4} alignItems="center">
+        <Grid container spacing={12} spacing={4}>
+          <Grid item xs={12} sm={8}>
             <Typography component={"span"} gutterBottom>
               <h1>Welcome!</h1>
               <p>
@@ -84,10 +89,8 @@ const IndexPage = () => {
               </p>
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={5}>
-            <Typography component={"span"} gutterBottom>
-              <BlogPosts />
-            </Typography>
+          <Grid item xs={12} sm={4}>
+            <BlogPosts />
           </Grid>
         </Grid>
       </Layout>
