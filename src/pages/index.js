@@ -71,7 +71,7 @@ const IndexPage = () => {
       <Header />
       <Layout>
         <SEO title="Home" />
-        <Grid container spacing={12} spacing={4}>
+        <Grid container spacing={12} spacing={6}>
           <Grid item xs={12} sm={8}>
             <Typography component={"span"} gutterBottom>
               <h1>Welcome!</h1>
