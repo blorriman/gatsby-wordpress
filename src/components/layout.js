@@ -3,16 +3,12 @@ import PropTypes from "prop-types"
 import { Link, StaticQuery, graphql } from "gatsby"
 import {
   AppBar,
-  Button,
   Container,
   Divider,
   Drawer,
-  Grid,
-  Grow,
   Hidden,
   IconButton,
   makeStyles,
-  Typography,
 } from "@material-ui/core"
 import { grey } from "@material-ui/core/colors"
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
