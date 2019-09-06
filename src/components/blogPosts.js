@@ -13,6 +13,7 @@ import {
   ListItemText,
   ListItemAvatar,
   makeStyles,
+  Paper,
   Typography,
 } from "@material-ui/core"
 
@@ -57,25 +58,23 @@ const BlogPosts = () => {
 
   const displayPosts = () => {
     return posts.map(post => {
-      /* console.log(
-        "image ",
-        post.node.featured_media.localFile.childImageSharp.fluid.srcSet
-      ) */
+      /* if (post.node.featured_media) {
+        console.log(
+          "image ",
+          post.node.featured_media.localFile.childImageSharp.fluid.srcSet
+        )
+      } */
       return (
-        <ListItem key={post.node.id} alignItems="flex-start">
-          <ListItemText
-            primary={post.node.title}
-            secondary={
-              <span>
-                <Typography component="span" variant="body2">
-                  <span
-                    dangerouslySetInnerHTML={{ __html: post.node.excerpt }}
-                  />
-                </Typography>
-              </span>
-            }
-          />
-        </ListItem>
+        <span key={post.node.id} alignItems="flex-start">
+          <Typography component={"span"} gutterBottom>
+            <h5>{post.node.title}</h5>
+            {post.node.featured_media && (
+              <Img
+                fluid={post.node.featured_media.localFile.childImageSharp.fluid}
+              />
+            )}
+          </Typography>
+        </span>
       )
     })
   }
@@ -87,7 +86,8 @@ const BlogPosts = () => {
           <Box fontSize="h6.fontSize" textAlign="center" m={1}>
             Recent Posts
           </Box>
-          <List className={classes.root}>{displayPosts()}</List>
+          {displayPosts()}
+          {/* <List className={classes.root}>{displayPosts()}</List> */}
         </Typography>
       </Container>
     </>
