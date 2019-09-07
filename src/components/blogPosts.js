@@ -46,7 +46,14 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const BlogPosts = () => {
+const BlogPosts = props => {
+  let path = "/"
+  if (props.pathname) {
+    const fullPath = props.pathname
+    const pathArray = fullPath.split("/")
+    path = pathArray[2]
+  }
+
   const classes = useStyles()
   const data = useStaticQuery(graphql`
     query {
@@ -80,39 +87,41 @@ const BlogPosts = () => {
 
   const displayPosts = () => {
     return posts.map(post => {
-      return (
-        <Link
-          to={`/post/${post.node.slug}`}
-          key={post.node.id}
-          className={classes.link}
-        >
-          <div className={classes.linkDiv}>
-            <Grid container spacing={1} alignItems="center">
-              <Grid item xs={2}>
-                {post.node.featured_media && (
-                  <Img
-                    fluid={
-                      post.node.featured_media.localFile.childImageSharp.fluid
-                    }
-                  />
-                )}
+      if (path !== post.node.slug) {
+        return (
+          <Link
+            to={`/post/${post.node.slug}`}
+            key={post.node.id}
+            className={classes.link}
+          >
+            <div className={classes.linkDiv}>
+              <Grid container spacing={1} alignItems="center">
+                <Grid item xs={2}>
+                  {post.node.featured_media && (
+                    <Img
+                      fluid={
+                        post.node.featured_media.localFile.childImageSharp.fluid
+                      }
+                    />
+                  )}
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography variant="subtitle1">{post.node.title}</Typography>
+                  <Typography component={"span"} noWrap>
+                    <p className={classes.textInfo}>
+                      <em>
+                        {post.node.author.name} -{" "}
+                        {moment(post.node.date).fromNow()}
+                      </em>
+                    </p>
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={9}>
-                <Typography variant="subtitle1">{post.node.title}</Typography>
-                <Typography component={"span"} noWrap>
-                  <p className={classes.textInfo}>
-                    <em>
-                      {post.node.author.name} -{" "}
-                      {moment(post.node.date).fromNow()}
-                    </em>
-                  </p>
-                </Typography>
-              </Grid>
-            </Grid>
-          </div>
-          <Divider style={{ margin: 10 }} />
-        </Link>
-      )
+            </div>
+            <Divider style={{ margin: 10 }} />
+          </Link>
+        )
+      }
     })
   }
 

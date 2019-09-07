@@ -17,7 +17,7 @@ import Header from "../components/header"
 import SEO from "../components/seo"
 import BlogPosts from "../components/blogPosts"
 
-const BlogPostTemplate = ({ data }) => {
+const BlogPostTemplate = ({ data, location }) => {
   return (
     <>
       <Layout>
@@ -55,7 +55,7 @@ const BlogPostTemplate = ({ data }) => {
 
             <Hidden xsDown>
               <Grid item xs={12} sm={4}>
-                <BlogPosts />
+                <BlogPosts pathname={location.pathname} />
               </Grid>
             </Hidden>
           </Grid>

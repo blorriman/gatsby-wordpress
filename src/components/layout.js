@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
+import { Location } from "@reach/router"
 import { Link, StaticQuery, graphql } from "gatsby"
 import {
   AppBar,
@@ -63,7 +64,8 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Layout = ({ children }) => {
+const Layout = ({ children, location }) => {
+  console.log("layout ", location)
   const classes = useStyles()
   const [open, setOpen] = useState(false)
 

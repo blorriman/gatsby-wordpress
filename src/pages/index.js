@@ -18,7 +18,7 @@ import SEO from "../components/seo"
 import Header from "../components/header"
 import BlogPosts from "../components/blogPosts"
 
-const IndexPage = () => {
+const IndexPage = ({ location }) => {
   const data = useStaticQuery(graphql`
     query {
       gatsby: file(relativePath: { eq: "Gatsby.png" }) {
@@ -68,7 +68,7 @@ const IndexPage = () => {
 
   return (
     <>
-      <Layout>
+      <Layout location={location}>
         <SEO title="Home" />
         <Grow in={true} timeout={800}>
           <Grid container spacing={12} spacing={6}>
