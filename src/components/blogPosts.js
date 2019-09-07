@@ -57,7 +57,7 @@ const BlogPosts = props => {
   const classes = useStyles()
   const data = useStaticQuery(graphql`
     query {
-      posts: allWordpressPost {
+      posts: allWordpressPost(sort: { fields: date, order: DESC }) {
         edges {
           node {
             id

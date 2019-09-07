@@ -20,7 +20,7 @@ import BlogPosts from "../components/blogPosts"
 const BlogPostTemplate = ({ data, location }) => {
   return (
     <>
-      <Layout>
+      <Layout location={location}>
         <SEO
           title={data.wordpressPost.title}
           description={data.wordpressPost.excerpt}
@@ -55,6 +55,7 @@ const BlogPostTemplate = ({ data, location }) => {
 
             <Hidden xsDown>
               <Grid item xs={12} sm={4}>
+                {/* <BlogPosts /> */}
                 <BlogPosts pathname={location.pathname} />
               </Grid>
             </Hidden>
