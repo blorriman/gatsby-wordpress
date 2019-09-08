@@ -11,13 +11,23 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core"
+import { grey } from "@material-ui/core/colors"
 
 import Layout from "../components/layout"
 import Header from "../components/header"
 import SEO from "../components/seo"
 import BlogPosts from "../components/blogPosts"
+import { mergeClasses } from "@material-ui/styles"
+
+const useStyles = makeStyles(theme => ({
+  dateText: {
+    fontSize: ".85em",
+    color: grey[500],
+  },
+}))
 
 const BlogPostTemplate = ({ data, location }) => {
+  const classes = useStyles()
   let pathname
   if (location) {
     pathname = location.pathname
@@ -44,7 +54,7 @@ const BlogPostTemplate = ({ data, location }) => {
               )}
               <Typography component={"span"} gutterBottom>
                 <h1>{data.wordpressPost.title}</h1>
-                <p>
+                <p className={classes.dateText}>
                   Written by {data.wordpressPost.author.name} on{" "}
                   {data.wordpressPost.date}
                 </p>
