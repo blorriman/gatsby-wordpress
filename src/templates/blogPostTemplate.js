@@ -18,6 +18,10 @@ import SEO from "../components/seo"
 import BlogPosts from "../components/blogPosts"
 
 const BlogPostTemplate = ({ data, location }) => {
+  let pathname
+  if (location) {
+    pathname = location.pathname
+  }
   return (
     <>
       <Layout location={location}>
@@ -55,8 +59,7 @@ const BlogPostTemplate = ({ data, location }) => {
 
             <Hidden xsDown>
               <Grid item xs={12} sm={4}>
-                {/* <BlogPosts /> */}
-                <BlogPosts pathname={location.pathname} />
+                <BlogPosts pathname={pathname} />
               </Grid>
             </Hidden>
           </Grid>

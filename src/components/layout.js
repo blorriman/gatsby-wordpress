@@ -65,6 +65,10 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Layout = ({ children, location }) => {
+  let pathname
+  if (location) {
+    pathname = location.pathname
+  }
   const classes = useStyles()
   const [open, setOpen] = useState(false)
 
@@ -124,7 +128,7 @@ const Layout = ({ children, location }) => {
                   </div>
                   <Divider className={classes.mobileDivider} />
                 </Hidden>
-                <BlogPosts pathname={location.pathname} />
+                <BlogPosts pathname={pathname} />
               </Drawer>
               {children}
             </main>
