@@ -39,7 +39,7 @@ const BlogPostTemplate = ({ data, location }) => {
                       .fluid
                   }
                   alt={data.wordpressPost.title}
-                  style={{ width: 250 }}
+                  style={{ maxWidth: 600 }}
                 />
               )}
               <Typography component={"span"} gutterBottom>
