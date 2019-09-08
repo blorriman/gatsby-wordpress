@@ -65,7 +65,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Layout = ({ children, location }) => {
-  console.log("layout ", location.pathname)
   const classes = useStyles()
   const [open, setOpen] = useState(false)
 
