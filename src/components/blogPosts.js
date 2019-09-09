@@ -106,8 +106,10 @@ const BlogPosts = props => {
                   )}
                 </Grid>
                 <Grid item xs={9}>
-                  <Typography variant="subtitle1">{post.node.title}</Typography>
-                  <Typography component={"span"} noWrap>
+                  <Typography variant="subtitle1" noWrap>
+                    {post.node.title}
+                  </Typography>
+                  <Typography component={"span"}>
                     <p className={classes.textInfo}>
                       <em>
                         {post.node.author.name} -{" "}
