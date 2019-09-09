@@ -117,9 +117,11 @@ const Layout = ({ children, location }) => {
                 <Hidden smUp>
                   <div className={classes.drawerHeader}>
                     <Link to="/">
-                      <IconButton>
-                        <HomeIcon />
-                      </IconButton>
+                      {pathname !== "/" && (
+                        <IconButton>
+                          <HomeIcon />
+                        </IconButton>
+                      )}
                     </Link>
 
                     <IconButton onClick={handleDrawerClose}>
